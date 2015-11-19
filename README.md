@@ -15,7 +15,7 @@ In order to use it, first add a file named  **composer.json** in your project ro
 ```javascript
 {
     "require": {
-        "passworks/passworks-php": "0.0.4-beta"
+        "passworks/passworks-php": "2.0.0"
     }
 }
 ```
