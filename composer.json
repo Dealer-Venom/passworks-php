@@ -1,22 +1,30 @@
 {
   "name": "passworks/passworks-php",
-  "description": "Passworks API client",
+  "description": "Client for Passworks API allowing the creating of Apple Passbook/Wallet content",
   "keywords": [
     "passworks",
-    "passworks.io",
-    "api",
-    "passbook"
+    "passbook",
+    "wallet",
+    "apple",
+    "passkit"
   ],
   "license": "MIT",
   "authors": [
     {
       "name": "Passworks Team",
-      "homepage": "http://www.passworks.io"
+      "homepage": "https://passworks.io"
     }
   ],
   "autoload": {
     "psr-0": {
       "Passworks": "src/"
     }
+  },
+  "support": {
+    "email": "api@passworks.io",
+    "issues": "https://github.com/passworks/passworks-php/issues",
+    "wiki": "https://github.com/passworks/passworks-php/wiki",
+    "source": "https://github.com/passworks/passworks-php",
+    "docs": "https://github.com/passworks/passworks-php"
   }
 }
