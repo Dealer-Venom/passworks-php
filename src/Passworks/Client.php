@@ -9,7 +9,7 @@ use Passworks\Exception\FileNotFoundException;
 
 class Client extends Request {
 
-    const VERSION = '2.0.0';
+    const VERSION = '2.0.1';
 
     private $api_app_id     = null;
     private $api_app_key    = null;
@@ -56,6 +56,10 @@ class Client extends Request {
                 ));
     }
 
+    public function getCouponInfo($campaign_id) {
+        return $this->request('get', "/coupons/{$campaign_id}");
+    }
+
     public function getCouponCampaigns($page = 1, $per_page = null) {
         return new ResourceIterator($this, 'get', '/coupons', 'coupons', array(
             'page'     => $page,
@@ -65,7 +69,7 @@ class Client extends Request {
 
     public function createCoupon($campaign_id, $params, $extra = array()) {
         return $this->request('post', "/coupons/{$campaign_id}/passes", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -75,13 +79,13 @@ class Client extends Request {
 
     public function updateCoupon($campaign_id, $pass_id, $params, $extra = array()) {
         return $this->request('patch', "/coupons/{$campaign_id}/passes/{$pass_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
     public function updateCouponCampaign($campaign_id, $params, $extra = array()) {
         return $this->request('patch', "/coupons/{$campaign_id}", array_merge(
-                                array('coupon' => $params), $extra
+                    array('coupon' => $params), $extra
                 ));
     }
 
@@ -91,6 +95,13 @@ class Client extends Request {
 
     public function pushCouponCampaign($campaign_id, $pass_id) {
         $this->request('post', "/coupons/{$campaign_id}/passes/{$pass_id}/push");
+    }
+
+    public function listCouponPasses($campaign_id, $page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', "/coupons/{$campaign_id}/passes", 'passes', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
     }
 
 
@@ -169,6 +180,10 @@ class Client extends Request {
                 ));
     }
 
+    public function getStoreCardInfo($campaign_id) {
+        return $this->request('get', "/store_cards/{$campaign_id}");
+    }
+
     public function getStoreCardCampaigns($page = 1, $per_page = null) {
         return new ResourceIterator($this, 'get', '/store_cards', 'store_cards', array(
             'page'     => $page,
@@ -178,7 +193,7 @@ class Client extends Request {
 
     public function createStoreCard($campaign_id, $params, $extra = array()) {
         return $this->request('post', "/store_cards/{$campaign_id}/passes", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -188,13 +203,13 @@ class Client extends Request {
 
     public function updateStoreCard($campaign_id, $pass_id, $params, $extra = array()) {
         return $this->request('patch', "/store_cards/{$campaign_id}/passes/{$pass_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
     public function updateStoreCardCampaign($campaign_id, $params, $extra = array()) {
         return $this->request('patch', "/store_cards/{$campaign_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -206,6 +221,13 @@ class Client extends Request {
         $this->request('post', "/store_cards/{$campaign_id}/passes/{$pass_id}/push");
     }
 
+    public function listStoreCardPasses($campaign_id, $page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', "/store_cards/{$campaign_id}/passes", 'passes', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
+    }
+
     // =================
     // Event Tickets
     //
@@ -213,6 +235,10 @@ class Client extends Request {
         return $this->request('post', '/event_tickets', array(
                     'event_ticket' => $params
                 ));
+    }
+
+    public function getEventTicketInfo($campaign_id) {
+        return $this->request('get', "/event_tickets/{$campaign_id}");
     }
 
     public function getEventTicketCampaigns($page = 1, $per_page = null) {
@@ -224,7 +250,7 @@ class Client extends Request {
 
     public function createEventTicket($campaign_id, $params, $extra = array()) {
         return $this->request('post', "/event_tickets/{$campaign_id}/passes", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -234,13 +260,13 @@ class Client extends Request {
 
     public function updateEventTicket($campaign_id, $pass_id, $params, $extra = array()) {
         return $this->request('patch', "/event_tickets/{$campaign_id}/passes/{$pass_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
     public function updateEventTicketCampaign($campaign_id, $params, $extra = array()) {
         return $this->request('patch', "/event_tickets/{$campaign_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -252,6 +278,13 @@ class Client extends Request {
         $this->request('post', "/event_tickets/{$campaign_id}/passes/{$pass_id}/push");
     }
 
+    public function listEventTicketPasses($campaign_id, $page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', "/event_tickets/{$campaign_id}/passes", 'passes', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
+    }
+
     // =================
     // Boarding Pass
     //
@@ -259,6 +292,10 @@ class Client extends Request {
         return $this->request('post', '/boarding_passes', array(
                     'boarding_pass' => $params
                 ));
+    }
+
+    public function getBoardingPassInfo($campaign_id) {
+        return $this->request('get', "/boarding_passes/{$campaign_id}");
     }
 
     public function getBoardingCampaigns($page = 1, $per_page = null) {
@@ -270,7 +307,7 @@ class Client extends Request {
 
     public function createBoardingPass($campaign_id, $params, $extra = array()) {
         return $this->request('post', "/boarding_passes/{$campaign_id}/passes", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -280,13 +317,13 @@ class Client extends Request {
 
     public function updateBoardingPass($campaign_id, $pass_id, $params, $extra = array()) {
         return $this->request('patch', "/boarding_passes/{$campaign_id}/passes/{$pass_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
     public function updateEventBoardingCampaign($campaign_id, $params, $extra = array()) {
         return $this->request('patch', "/boarding_passes/{$campaign_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -298,6 +335,13 @@ class Client extends Request {
         $this->request('post', "/boarding_passes/{$campaign_id}/passes/{$pass_id}/push");
     }
 
+    public function listBoardingPassPasses($campaign_id, $page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', "/boarding_passes/{$campaign_id}/passes", 'passes', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
+    }
+
     // =================
     // Generic
     //
@@ -305,6 +349,10 @@ class Client extends Request {
         return $this->request('post', '/generics', array(
                     'generic' => $params
                 ));
+    }
+
+    public function getGenericCampaignInfo($campaign_id) {
+        return $this->request('get', "/generics/{$campaign_id}");
     }
 
     public function getGenericCampaigns($page = 1, $per_page = null) {
@@ -316,7 +364,7 @@ class Client extends Request {
 
     public function createGenericPass($campaign_id, $params, $extra = array()) {
         return $this->request('post', "/generics/{$campaign_id}/passes", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -326,13 +374,13 @@ class Client extends Request {
 
     public function updateGenericPass($campaign_id, $pass_id, $params, $extra = array()) {
         return $this->request('patch', "/generics/{$campaign_id}/passes/{$pass_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
     public function updateGenericCampaign($campaign_id, $params, $extra = array()) {
         return $this->request('patch', "/generics/{$campaign_id}", array_merge(
-                                array('pass' => $params), $extra
+                    array('pass' => $params), $extra
                 ));
     }
 
@@ -340,8 +388,15 @@ class Client extends Request {
         $this->request('post', "/generics/{$campaign_id}/passes/{$pass_id}/push");
     }
 
-    public function pushgenericCampaign($campaign_id, $pass_id) {
+    public function pushGenericCampaign($campaign_id, $pass_id) {
         $this->request('post', "/generics/{$campaign_id}/passes/{$pass_id}/push");
+    }
+
+    public function listGenericCampaign($campaign_id, $page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', "/generics/{$campaign_id}/passes", 'passes', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
     }
 
 }
