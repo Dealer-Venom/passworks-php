@@ -1,0 +1,5 @@
+{
+    "require": {
+        "passworks/passworks-php": "2.0.0"
+    }
+}
