@@ -9,7 +9,7 @@ use Passworks\Exception\FileNotFoundException;
 
 class Client extends Request {
 
-    const VERSION = '2.0.1';
+    const VERSION = '2.1.0';
 
     private $api_app_id     = null;
     private $api_app_key    = null;
@@ -104,6 +104,22 @@ class Client extends Request {
         ));
     }
 
+    public function getCouponDailyReport($campaign_id, array $options = array()) {
+        $arguments = array();
+        if (isset($options['start_date'])) {
+            $arguments['start_date'] = $options['start_date'];
+        }
+        if (isset($options['end_date'])) {
+            $arguments['end_date'] = $options['end_date'];
+        }
+
+        $arguments = http_build_query($arguments);
+        return $this->request('get', "/coupons/{$campaign_id}/reports?{$arguments}" );
+    }
+
+    public function getCouponTotalReport($campaign_id) {
+        return $this->request('get', "/coupons/{$campaign_id}/reports/totals");
+    }
 
     // =================
     // Certificates
@@ -228,6 +244,23 @@ class Client extends Request {
         ));
     }
 
+    public function getStoreCardDailyReport($campaign_id, array $options = array()) {
+        $arguments = array();
+        if (isset($options['start_date'])) {
+            $arguments['start_date'] = $options['start_date'];
+        }
+        if (isset($options['end_date'])) {
+            $arguments['end_date'] = $options['end_date'];
+        }
+
+        $arguments = http_build_query($arguments);
+        return $this->request('get', "/store_cards/{$campaign_id}/reports?{$arguments}" );
+    }
+
+    public function getStoreCardTotalReport($campaign_id) {
+        return $this->request('get', "/store_cards/{$campaign_id}/reports/totals");
+    }
+
     // =================
     // Event Tickets
     //
@@ -283,6 +316,23 @@ class Client extends Request {
             'page'     => $page,
             'per_page' => $per_page
         ));
+    }
+
+    public function getEventTicketDailyReport($campaign_id, array $options = array()) {
+        $arguments = array();
+        if (isset($options['start_date'])) {
+            $arguments['start_date'] = $options['start_date'];
+        }
+        if (isset($options['end_date'])) {
+            $arguments['end_date'] = $options['end_date'];
+        }
+
+        $arguments = http_build_query($arguments);
+        return $this->request('get', "/event_tickets/{$campaign_id}/reports?{$arguments}" );
+    }
+
+    public function getEventTicketTotalReport($campaign_id) {
+        return $this->request('get', "/event_tickets/{$campaign_id}/reports/totals");
     }
 
     // =================
@@ -342,6 +392,23 @@ class Client extends Request {
         ));
     }
 
+    public function getBoardingPassDailyReport($campaign_id, array $options = array()) {
+        $arguments = array();
+        if (isset($options['start_date'])) {
+            $arguments['start_date'] = $options['start_date'];
+        }
+        if (isset($options['end_date'])) {
+            $arguments['end_date'] = $options['end_date'];
+        }
+
+        $arguments = http_build_query($arguments);
+        return $this->request('get', "/boarding_passes/{$campaign_id}/reports?{$arguments}" );
+    }
+
+    public function getBoardingPassTotalReport($campaign_id) {
+        return $this->request('get', "/boarding_passes/{$campaign_id}/reports/totals");
+    }
+
     // =================
     // Generic
     //
@@ -397,6 +464,23 @@ class Client extends Request {
             'page'     => $page,
             'per_page' => $per_page
         ));
+    }
+
+    public function getGenericCampaignDailyReport($campaign_id, array $options = array()) {
+        $arguments = array();
+        if (isset($options['start_date'])) {
+            $arguments['start_date'] = $options['start_date'];
+        }
+        if (isset($options['end_date'])) {
+            $arguments['end_date'] = $options['end_date'];
+        }
+
+        $arguments = http_build_query($arguments);
+        return $this->request('get', "/generics/{$campaign_id}/reports?{$arguments}" );
+    }
+
+    public function getGenericCampaignTotalReport($campaign_id) {
+        return $this->request('get', "/generics/{$campaign_id}/reports/totals");
     }
 
 }
