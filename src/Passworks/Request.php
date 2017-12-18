@@ -83,7 +83,6 @@ class Request {
 
         if( $method == 'POST' ){
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
         } elseif ( $method == 'PATCH' ) {
@@ -101,6 +100,27 @@ class Request {
         curl_setopt($curl, CURLOPT_USERAGENT        , $this->getUserAgent());
         curl_setopt($curl, CURLOPT_HTTPAUTH         , CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD          , $this->getApiUsername() . ':' . $this->getApiKey());
+
+        // bug fix for issue 2
+        // https://github.com/passworks/passworks-php/issues/2
+        //
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+          function($curl, $header) use (&$headers)
+          {
+            $len = strlen($header);
+            $header = explode(':', $header, 2);
+            if (count($header) < 2) // ignore invalid headers
+              return $len;
+
+            $name = strtolower(trim($header[0]));
+            if (!array_key_exists($name, $headers))
+              $headers[$name] = [trim($header[1])];
+            else
+              $headers[$name][] = trim($header[1]);
+
+            return $len;
+          }
+        );
 
         $result = curl_exec($curl);
 
