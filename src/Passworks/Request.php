@@ -90,6 +90,8 @@ class Request {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
             $headers[] = 'Content-Length: ' . strlen($post_data);
+        } elseif ( $method == 'DELETE' ) {
+            curl_setopt ($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER   , true);
@@ -117,6 +119,9 @@ class Request {
         $info       = curl_getinfo($curl);
 
         $response   = explode("\r\n\r\n", $result, 2 + $info['redirect_count']);
+        if ( strpos($response[0],"100 Continue")!=false ) {
+            $response = explode ("\r\n\r\n",$response[1]);
+        }
 
         if( $this->getDebug() ){
             print "\n===================== RESPONSE =======================\n";
