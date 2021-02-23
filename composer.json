@@ -1,5 +1,5 @@
 {
-  "name": "Dealer-Venom/passworks-php",
+  "name": "dealer-venom/passworks-php",
   "description": "Client for Passworks API allowing the creating of Apple Passbook/Wallet content",
   "keywords": [
     "passworks",
