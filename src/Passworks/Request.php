@@ -2,6 +2,7 @@
 
 namespace Passworks;
 
+use DealerVenom\Helpers\DVLog;
 use Passworks\Exception\ConnectionErrorException;
 use Passworks\Exception\UnprocessableEntityException;
 
@@ -11,6 +12,11 @@ class Request {
   private $endpoint         = 'https://api.passworks.io';
   private $user_agent       = null;
   private $api_version      = 2;
+
+  public function __construct()
+  {
+      $log = new DVLog();
+  }
 
     public function getResponseHeaders()
     {
@@ -53,6 +59,7 @@ class Request {
 
     public function request($method, $url, $post_data=null, $headers=null)
     {
+        $log = new DVLog();
 
         $method = strtoupper($method);
 
@@ -75,10 +82,10 @@ class Request {
 
         if( $this->getDebug() ){
             curl_setopt($curl, CURLOPT_VERBOSE, true);
-            print "\n===================== REQUEST =======================\n";
-            print "URL: {$method} {$request_url}\n";
-            print_r($post_data);
-            print "\n=============================================\n";
+            $log->write ("\n===================== REQUEST =======================\n");
+            $log->write ("URL: {$method} {$request_url}\n");
+            $log->write(print_r($post_data,true));
+            $log->write ("\n=============================================\n");
         }
 
         if( $method == 'POST' ){
@@ -124,9 +131,9 @@ class Request {
         }
 
         if( $this->getDebug() ){
-            print "\n===================== RESPONSE =======================\n";
-            print_r($response);
-            print "\n=============================================\n";
+            $log->write ("\n===================== RESPONSE =======================\n");
+            $log->write(print_r($response,true));
+            $log->write ("\n=============================================\n");
         }
 
         $body                    = array_pop($response);

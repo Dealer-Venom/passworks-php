@@ -2,4 +2,4 @@
 vendor
 .com.apple.timemachine.supported
 .DS_Store
-
+.idea

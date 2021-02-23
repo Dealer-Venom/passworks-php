@@ -2,6 +2,7 @@
 
 namespace Passworks;
 
+use DealerVenom\Helpers\DVLog;
 use Passworks\Exception;
 use Passworks\Request;
 use Passworks\Iterator\ResourceIterator;
