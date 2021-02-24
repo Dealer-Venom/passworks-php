@@ -484,4 +484,15 @@ class Client extends Request {
         return $this->request('get', "/generics/{$campaign_id}/reports/totals");
     }
 
+    public function redeemCoupon ($campaign_id, $code, $comment)
+    {
+        $redeem = [
+            'pass' => [
+                'redeem_code' => $code,
+                'comment' => $comment
+            ]
+        ];
+
+        return $this->request('post',"/coupons/{$campaign_id}/redeem",$redeem);
+    }
 }
